@@ -21,7 +21,7 @@
       setTimeout(() => {
         $xhr.innerHTML = "";
         $xhr.appendChild($fragment);
-      }, 3000);
+      }, 2500);
     } else {
       const meessage = xhr.statusText || "Ocurrio un error";
       $xhr.innerHTML = `<h2>${xhr.status}</h2>
@@ -49,14 +49,51 @@
         <h4>${el.email}</h4>`;
         $fragment.appendChild($li);
       });
-      $fetch.appendChild($fragment);
+      setTimeout(() => {
+        $loader.style.display = "none";
+        $fetch.appendChild($fragment);
+      }, 3500);
     })
     .catch((err) => {
       const meessage = err.statusText || "Ocurrio un error";
       $fetch.innerHTML = `<h2>${err.status}</h2>
       <h3>${meessage}</h3>`;
-    })
-    .finally(() => {
-      $loader.style.display = "none";
     });
+})();
+
+(() => {
+  const $fetchAsync = document.getElementById("fetch-async"),
+    $loader = document.getElementById("loader2"),
+    $fragment = document.createDocumentFragment();
+
+  async function getData() {
+    try {
+      let res = await fetch("https://jsonplaceholder.typicode.com/users", {}),
+        json = await res.json();
+      if (!res.ok) {
+        throw {
+          status: res.status,
+          statusText: res.statusText,
+        };
+      }
+      json.forEach((el) => {
+        const $li = document.createElement("li");
+        $li.innerHTML = `<h2>${el.name}</h2>
+        <h4>${el.phone}</h4>
+        <h4>${el.email}</h4>`;
+        $fragment.appendChild($li);
+      });
+      setTimeout(() => {
+        $loader.style.display = "none";
+        $fetchAsync.appendChild($fragment);
+      }, 3000);
+    } catch (err) {
+      $loader.style.display = "none";
+      const meessage = err.statusText || "Ocurrio un error";
+      $fetchAsync.innerHTML = `<h2>${err.status}</h2>
+      <h3>${meessage}</h3>`;
+    } finally {
+    }
+  }
+  getData();
 })();
