@@ -23,9 +23,9 @@
         $xhr.appendChild($fragment);
       }, 2500);
     } else {
-      const meessage = xhr.statusText || "Ocurrio un error";
+      const message = xhr.statusText || "Ocurrio un error";
       $xhr.innerHTML = `<h2>${xhr.status}</h2>
-      <h3>${meessage}</h3>`;
+      <h3>${message}</h3>`;
     }
   });
 
@@ -55,9 +55,9 @@
       }, 3500);
     })
     .catch((err) => {
-      const meessage = err.statusText || "Ocurrio un error";
+      const message = err.statusText || "Ocurrio un error";
       $fetch.innerHTML = `<h2>${err.status}</h2>
-      <h3>${meessage}</h3>`;
+      <h3>${message}</h3>`;
     });
 })();
 
@@ -89,9 +89,69 @@
       }, 3000);
     } catch (err) {
       $loader.style.display = "none";
-      const meessage = err.statusText || "Ocurrio un error";
+      const message = err.statusText || "Ocurrio un error";
       $fetchAsync.innerHTML = `<h2>${err.status}</h2>
-      <h3>${meessage}</h3>`;
+      <h3>${message}</h3>`;
+    } finally {
+    }
+  }
+  getData();
+})();
+(() => {
+  const $axios = document.getElementById("axios"),
+    $loader = document.getElementById("loader3"),
+    $fragment = document.createDocumentFragment();
+
+  axios
+    .get("https://jsonplaceholder.typicode.com/users")
+    .then((res) => {
+      let json = res.data;
+
+      json.forEach((el) => {
+        const $li = document.createElement("li");
+        $li.innerHTML = `<h2>${el.name}</h2>
+        <h4>${el.phone}</h4>
+        <h4>${el.email}</h4>`;
+        $fragment.appendChild($li);
+      });
+      setTimeout(() => {
+        $loader.style.display = "none";
+        $axios.appendChild($fragment);
+      }, 500);
+    })
+    .catch((err) => {
+      const message = err.response.statusText || "Ocurrio un error";
+      $loader.style.display = "none";
+      $axios.innerHTML = `<h2>${message}</h2>
+      <h3>${err.response.status}</h3>`;
+    })
+    .finally(() => {});
+})();
+(() => {
+  const $axiosAsync = document.getElementById("axios-async-await"),
+    $loader = document.getElementById("loader4"),
+    $fragment = document.createDocumentFragment();
+  async function getData() {
+    try {
+      let res = await axios.get("https://jsonplaceholder.typicode.com/users"),
+        json = await res.data;
+
+      json.forEach((el) => {
+        const $li = document.createElement("li");
+        $li.innerHTML = `<h2>${el.name}</h2>
+        <h4>${el.phone}</h4>
+        <h4>${el.email}</h4>`;
+        $fragment.appendChild($li);
+      });
+      setTimeout(() => {
+        $loader.style.display = "none";
+        $axiosAsync.appendChild($fragment);
+      }, 500);
+    } catch (err) {
+      const message = err.response.statusText || "Ocurrio un error";
+      $loader.style.display = "none";
+      $axiosAsync.innerHTML = `<h2>${message}</h2>
+      <h3>${err.response.status}</h3>`;
     } finally {
     }
   }
