@@ -1,4 +1,2 @@
-const d = document;
-
-console.log("linkado");
-alert("linkado");
+console.log("hola js");
+alert("hola js");
