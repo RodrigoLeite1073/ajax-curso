@@ -26,9 +26,9 @@
       "constelacion": "Fénix"
     },
     {
-      "id": 6,
       "nombre": "Saga",
-      "constelacion": "Gemini"
+      "constelacion": "Geminis",
+      "id": 6
     },
     {
       "nombre": "Mu",
@@ -41,8 +41,8 @@
       "id": 8
     },
     {
-      "nombre": "Jdjsjsj",
-      "constelacion": "Jsksks",
+      "nombre": "Mascara de Muerte",
+      "constelacion": "Cancer",
       "id": 9
     }
   ],

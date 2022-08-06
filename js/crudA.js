@@ -70,6 +70,17 @@ export const submitBtn = () => {
           },
         });
       } else {
+        ajax({
+          url: `http://localhost:5555/santos/${e.target.id.value}`,
+          method: "PUT",
+          success: (res) => location.reload(),
+          error: (err) =>
+            $form.insertAdjacentHTML("afterend", `<p><b>${err}</b></p>`),
+          data: {
+            nombre: e.target.nombre.value,
+            constelacion: e.target.constelacion.value,
+          },
+        });
       }
     }
   });
