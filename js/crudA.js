@@ -26,16 +26,64 @@ const ajax = (options) => {
   xhr.send(JSON.stringify(data));
 };
 
-const getAll = () => {
+export const getAll = () => {
   ajax({
     url: "http://localhost:5555/santos",
     success: (res) => {
       console.log(res);
+      res.forEach((el) => {
+        $template.querySelector(".name").textContent = el.nombre;
+        $template.querySelector(".constellation").textContent = el.constelacion;
+        $template.querySelector(".edit").dataset.id = el.id;
+        $template.querySelector(".edit").dataset.name = el.nombre;
+        $template.querySelector(".edit").dataset.constellation =
+          el.constelacion;
+        $template.querySelector(".delete").dataset.id = el.id;
+
+        let $clone = d.importNode($template, true);
+        $fragment.appendChild($clone);
+      });
+      $table.querySelector("tbody").appendChild($fragment);
     },
     error: (err) => {
       console.error(err);
+      $table.insertAdjacentHTML("afterend", `<p><b>${err}</b></p>`);
     },
   });
 };
 
-d.addEventListener("DOMContentLoaded", getAll);
+export const submitBtn = () => {
+  d.addEventListener("submit", (e) => {
+    if (e.target === $form) {
+      e.preventDefault();
+
+      if (!e.target.id.value) {
+        ajax({
+          url: "http://localhost:5555/santos",
+          method: "POST",
+          success: (res) => location.reload(),
+          error: (err) =>
+            $form.insertAdjacentHTML("afterend", `<p><b>${err}</b></p>`),
+          data: {
+            nombre: e.target.nombre.value,
+            constelacion: e.target.constelacion.value,
+          },
+        });
+      } else {
+      }
+    }
+  });
+};
+
+export const actionsBtn = () => {
+  d.addEventListener("click", (e) => {
+    if (e.target.matches(".edit")) {
+      alert("editar");
+      $title.textContent = "Editar Santo";
+      $form.nombre.value = e.target.dataset.name;
+      $form.constelacion.value = e.target.dataset.constellation;
+      $form.id.value = e.target.dataset.id;
+    } else if (e.target.matches(".delete")) {
+    }
+  });
+};

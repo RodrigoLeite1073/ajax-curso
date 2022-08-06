@@ -29,6 +29,21 @@
       "id": 6,
       "nombre": "Saga",
       "constelacion": "Gemini"
+    },
+    {
+      "nombre": "Mu",
+      "constelacion": "Aries",
+      "id": 7
+    },
+    {
+      "nombre": "Adebaran",
+      "constelacion": "Tauro",
+      "id": 8
+    },
+    {
+      "nombre": "Jdjsjsj",
+      "constelacion": "Jsksks",
+      "id": 9
     }
   ],
   "dioses": [
