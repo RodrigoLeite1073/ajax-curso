@@ -28,7 +28,7 @@ const ajax = (options) => {
 
 export const getAll = () => {
   ajax({
-    url: "http://localhost:5555/santos",
+    url: "http://localhost:5000/santos",
     success: (res) => {
       console.log(res);
       res.forEach((el) => {
@@ -39,6 +39,7 @@ export const getAll = () => {
         $template.querySelector(".edit").dataset.constellation =
           el.constelacion;
         $template.querySelector(".delete").dataset.id = el.id;
+        $template.querySelector(".delete").dataset.name = el.nombre;
 
         let $clone = d.importNode($template, true);
         $fragment.appendChild($clone);
@@ -59,7 +60,7 @@ export const submitBtn = () => {
 
       if (!e.target.id.value) {
         ajax({
-          url: "http://localhost:5555/santos",
+          url: "http://localhost:5000/santos",
           method: "POST",
           success: (res) => location.reload(),
           error: (err) =>
@@ -71,7 +72,7 @@ export const submitBtn = () => {
         });
       } else {
         ajax({
-          url: `http://localhost:5555/santos/${e.target.id.value}`,
+          url: `http://localhost:5000/santos/${e.target.id.value}`,
           method: "PUT",
           success: (res) => location.reload(),
           error: (err) =>
@@ -89,12 +90,22 @@ export const submitBtn = () => {
 export const actionsBtn = () => {
   d.addEventListener("click", (e) => {
     if (e.target.matches(".edit")) {
-      alert("editar");
       $title.textContent = "Editar Santo";
       $form.nombre.value = e.target.dataset.name;
       $form.constelacion.value = e.target.dataset.constellation;
       $form.id.value = e.target.dataset.id;
     } else if (e.target.matches(".delete")) {
+      let isDelete = confirm(
+        `¿Seguro quieres borrar a ${e.target.dataset.name}`
+      );
+      if (isDelete) {
+        ajax({
+          url: `http://localhost:5000/santos/${e.target.dataset.id}`,
+          method: "DELETE",
+          success: (res) => location.reload(),
+          error: (err) => alert(err),
+        });
+      }
     }
   });
 };
