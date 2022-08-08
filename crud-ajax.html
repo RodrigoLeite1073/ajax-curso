@@ -6,11 +6,16 @@
     <title>CRUD API REST AJAX</title>
   </head>
   <body>
-    <h1>CRUD API REST AJAX</h1>
+    <h1>CRUD API REST</h1>
+    <select name="opiciones" form="form" id="select">
+      <option value="Ajax">AJAX</option>
+      <option value="Fetch">Fetch</option>
+      <option value="Axios">Axios</option>
+    </select>
     <section class="crud">
       <article>
         <h2 class="crud-title">Agregar Santo</h2>
-        <form class="crud-form">
+        <form id="form" class="crud-form">
           <input type="text" name="nombre" placeholder="nombre" required />
           <br />
           <input
