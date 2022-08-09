@@ -1,5 +1,5 @@
 import { actionsBtn, getAll, submitBtn } from "./crudA.js";
-import { getAllFetch } from "./crudFetch.js";
+import { actionsBtnFetch, getAllFetch, submitBtnFetch } from "./crudFetch.js";
 
 const d = document,
   $select = d.getElementById("select"),
@@ -22,6 +22,8 @@ d.addEventListener("DOMContentLoaded", () => {
         break;
       case "Fetch":
         getAllFetch();
+        submitBtnFetch();
+        actionsBtnFetch();
         break;
       default:
         break;
