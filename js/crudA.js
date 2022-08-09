@@ -30,7 +30,6 @@ export const getAll = () => {
   ajax({
     url: "http://localhost:5000/santos",
     success: (res) => {
-      console.log(res);
       res.forEach((el) => {
         $template.querySelector(".name").textContent = el.nombre;
         $template.querySelector(".constellation").textContent = el.constelacion;
