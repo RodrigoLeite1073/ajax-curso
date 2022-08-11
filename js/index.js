@@ -1,3 +1,4 @@
+import { actionsBtnAxios, getAllAxios, submitBtnAxios } from "./crud-axios.js";
 import { actionsBtn, getAll, submitBtn } from "./crudA.js";
 import { actionsBtnFetch, getAllFetch, submitBtnFetch } from "./crudFetch.js";
 
@@ -26,6 +27,9 @@ d.addEventListener("DOMContentLoaded", () => {
         actionsBtnFetch();
         break;
       default:
+        getAllAxios();
+        submitBtnAxios();
+        actionsBtnAxios();
         break;
     }
   }
